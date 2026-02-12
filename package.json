@@ -1,0 +1,60 @@
+{
+	"name": "@playform/favicon",
+	"version": "0.1.0",
+	"private": false,
+	"description": "Favicon 🎨",
+	"keywords": [
+		"astro",
+		"astro-component",
+		"astro-integration",
+		"astro-favicon",
+		"favicon",
+		"realfavicongenerator",
+		"icon",
+		"withastro",
+		"playform"
+	],
+	"homepage": "HTTPS://GitHub.Com/PlayForm/Favicon?tab=readme-ov-file",
+	"bugs": {
+		"url": "HTTPS://GitHub.Com/PlayForm/Favicon/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PlayForm/Favicon.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "Source ✍🏻 Open 👐🏻",
+		"email": "Source/Open@PlayForm.Cloud",
+		"url": "HTTPS://PlayForm.Cloud"
+	},
+	"type": "module",
+	"exports": {
+		".": "./Target/Function/Integration.js",
+		"./Favicon": "./Source/Component/Favicon.astro"
+	},
+	"main": "./Target/Function/Integration.js",
+	"types": "./Target/Function/Integration.d.ts",
+	"files": [
+		"Target",
+		"Source/Component"
+	],
+	"scripts": {
+		"Run": "Build 'Source/**/*.ts' --Watch --ESBuild Configuration/ESBuild.ts",
+		"prepublishOnly": "Build 'Source/**/*.ts' --ESBuild Configuration/ESBuild.ts"
+	},
+	"dependencies": {
+		"@playform/pipe": "0.1.4",
+		"@realfavicongenerator/generate-favicon": "0.6.2",
+		"@realfavicongenerator/image-adapter-node": "0.6.1",
+		"astro": "5.17.2",
+		"deepmerge-ts": "7.1.5"
+	},
+	"devDependencies": {
+		"@playform/build": "0.3.0"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	}
+}

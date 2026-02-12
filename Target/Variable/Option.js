@@ -1,0 +1,1 @@
+var e={Source:"Source/Asset/PlayForm.svg",DarkSource:"Source/Asset/Dark/PlayForm.svg",Path:"/",Settings:(await import("./Settings.js")).default,Inject:!0,InjectHtml:!1,BustURL:!1,Logger:console.log};export{e as default};
