@@ -212,7 +212,7 @@ export default ((...[_Option = {}]) => {
 					);
 
 					if (Inject) {
-						const Html = await (
+						const Html = (
 							await import("@realfavicongenerator/generate-favicon")
 						).generateFaviconHtml(FaviconSettings);
 
