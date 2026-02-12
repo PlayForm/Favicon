@@ -1,0 +1,336 @@
+---
+/**
+ * @module Favicon
+ *
+ * Favicon component for injecting complete favicon HTML into Astro pages
+ * Includes all meta tags, manifest links, and optional cache busting
+ * @see {@link https://realfavicongenerator.net/ Real Favicon Generator}
+ */
+
+import { BustUrl } from "../Function/BustUrl.js";
+import type {
+	Settings,
+	TouchSettings,
+	WebAppManifestSettings,
+} from "../Interface/Option.js";
+
+/**
+ * Component props for Favicon
+ */
+interface Props {
+	/**
+	 * The base path where favicon files are located.
+	 * Default: "/"
+	 */
+	Path?: string;
+
+	/**
+	 * Favicon generation settings (optional, defaults to sensible defaults).
+	 */
+	Settings?: Settings | boolean;
+
+	/**
+	 * Whether to include all meta tags (default: true)
+	 */
+	Meta?: boolean;
+
+	/**
+	 * Application title for mobile web app
+	 */
+	AppTitle?: string;
+
+	/**
+	 * Whether to bust cache on all favicon URLs (default: true)
+	 */
+	BustURL?: boolean;
+}
+
+const {
+	Path = "/",
+
+	Settings,
+
+	Meta = true,
+
+	AppTitle,
+
+	BustURL = true,
+} = Astro.props;
+
+/**
+ * Get settings object if valid
+ */
+const GetSettingsObject = (): Settings | null =>
+	Settings && typeof Settings === "object" ? Settings : null;
+
+/**
+ * Get touch settings from Settings
+ */
+const GetTouchSettings = (): TouchSettings | null => {
+	const SettingsObject = GetSettingsObject();
+
+	if (!SettingsObject) return null;
+
+	const Touch = SettingsObject.Touch;
+
+	if (!Touch) return null;
+
+	return typeof Touch === "boolean" ? null : Touch;
+};
+
+/**
+ * Get WebAppManifest settings from Settings
+ */
+const GetWebAppManifestSettings = (): WebAppManifestSettings | null => {
+	const SettingsObject = GetSettingsObject();
+
+	if (!SettingsObject) return null;
+
+	const WebAppManifest = SettingsObject.WebAppManifest;
+
+	if (!WebAppManifest) return null;
+
+	return typeof WebAppManifest === "boolean" ? null : WebAppManifest;
+};
+
+/**
+ * Get theme color from settings or default
+ */
+const GetThemeColor = (): string => {
+	const WebAppManifestSettings = GetWebAppManifestSettings();
+
+	return WebAppManifestSettings?.ThemeColor ?? "#eaeaea";
+};
+
+/**
+ * Get favicon name for mobile apps
+ */
+const GetFaviconName = (): string => {
+	const WebAppManifestSettings = GetWebAppManifestSettings();
+
+	return AppTitle ?? WebAppManifestSettings?.Name ?? "";
+};
+
+/**
+ * Get touch app title
+ */
+const GetTouchAppTitle = (): string => {
+	const TouchSettings = GetTouchSettings();
+
+	const FaviconName = GetFaviconName();
+
+	return TouchSettings?.AppTitle ?? FaviconName;
+};
+
+/**
+ * Bust URL if enabled
+ */
+const BustedUrl = (Url: string): string => (BustURL ? BustUrl(Url) : Url);
+
+/**
+ * Create link HTML element
+ */
+const CreateLink = (
+	Rel: string,
+
+	Href: string,
+
+	Type?: string,
+
+	Sizes?: string,
+
+	CrossOrigin?: string,
+): string => {
+	const Attributes: string[] = [`rel="${Rel}"`, `href="${BustedUrl(Href)}"`];
+
+	if (Type) {
+		Attributes.push(`type="${Type}"`);
+	}
+
+	if (Sizes) {
+		Attributes.push(`sizes="${Sizes}"`);
+	}
+
+	if (CrossOrigin) {
+		Attributes.push(`crossorigin="${CrossOrigin}"`);
+	}
+
+	return `<link ${Attributes.join(" ")} />`;
+};
+
+/**
+ * Create meta HTML element
+ */
+const CreateMeta = (Name: string, Content: string): string =>
+	`<meta name="${Name}" content="${Content}" />`;
+
+/**
+ * Get theme color meta tags
+ */
+const GetThemeColorMetaTags = (): string[] => {
+	const ThemeColor = GetThemeColor();
+
+	const Tags: string[] = [];
+
+	if (ThemeColor) {
+		Tags.push(CreateMeta("theme-color", ThemeColor));
+	}
+
+	return Tags;
+};
+
+/**
+ * Get mobile web app meta tags
+ */
+const GetMobileWebAppMetaTags = (): string[] => {
+	const Tags: string[] = [
+		CreateMeta("mobile-web-app-capable", "yes"),
+
+		CreateMeta("apple-mobile-web-app-capable", "yes"),
+
+		CreateMeta("apple-mobile-web-app-status-bar-style", "default"),
+	];
+
+	const TouchAppTitle = GetTouchAppTitle();
+
+	if (TouchAppTitle) {
+		Tags.push(CreateMeta("apple-mobile-web-app-title", TouchAppTitle));
+	}
+
+	return Tags;
+};
+
+/**
+ * Get Microsoft application meta tags
+ */
+const GetMicrosoftMetaTags = (): string[] => {
+	const ThemeColor = GetThemeColor();
+
+	const Tags: string[] = [];
+
+	if (ThemeColor) {
+		Tags.push(CreateMeta("msapplication-TileColor", ThemeColor));
+
+		Tags.push(
+			CreateMeta(
+				"msapplication-TileImage",
+
+				BustedUrl(`${Path}mstile-144x144.png`),
+			),
+		);
+
+		Tags.push(
+			CreateMeta(
+				"msapplication-config",
+
+				BustedUrl(`${Path}browserconfig.xml`),
+			),
+		);
+	}
+
+	return Tags;
+};
+
+/**
+ * Get all favicon link elements
+ */
+const GetFaviconLinks = (): string[] => {
+	const Links: string[] = [];
+
+	// Standard favicon links
+	Links.push(
+		CreateLink("icon", `${Path}favicon-96x96.png`, "image/png", "96x96"),
+	);
+
+	Links.push(CreateLink("icon", `${Path}favicon.svg`, "image/svg+xml"));
+
+	Links.push(CreateLink("shortcut icon", `${Path}favicon.ico`));
+
+	// Apple touch icon
+	Links.push(
+		CreateLink(
+			"apple-touch-icon",
+
+			`${Path}apple-touch-icon.png`,
+
+			undefined,
+
+			"180x180",
+		),
+	);
+
+	// Apple touch icon precomposed (for iOS < 6)
+	Links.push(
+		CreateLink(
+			"apple-touch-icon-precomposed",
+
+			`${Path}apple-touch-icon.png`,
+
+			undefined,
+
+			"180x180",
+		),
+	);
+
+	return Links;
+};
+
+/**
+ * Get all meta tags
+ */
+const GetAllMetaTags = (): string[] => {
+	if (!Meta) return [];
+
+	return [
+		...GetThemeColorMetaTags(),
+
+		...GetMobileWebAppMetaTags(),
+
+		...GetMicrosoftMetaTags(),
+	];
+};
+
+/**
+ * Get manifest link
+ */
+const GetManifestLink = (): string => {
+	const WebAppManifestSettings = GetWebAppManifestSettings();
+
+	// Use WebAppManifest settings path or default to Manifest.json
+	const ManifestPath =
+		WebAppManifestSettings &&
+		typeof WebAppManifestSettings === "object" &&
+		"Name" in WebAppManifestSettings
+			? `${Path}manifest.json`
+			: "/Manifest.json";
+
+	return CreateLink(
+		"manifest",
+
+		ManifestPath,
+
+		undefined,
+
+		undefined,
+
+		"use-credentials",
+	);
+};
+
+const FaviconLinks = GetFaviconLinks();
+
+const MetaTags = GetAllMetaTags();
+
+const ManifestLink = GetManifestLink();
+---
+
+<>
+	<!-- Favicon Links -->
+	{FaviconLinks.map((Link) => <Fragment set:html={Link} />)}
+
+	<!-- Web App Manifest -->
+	<Fragment set:html={ManifestLink} />
+
+	<!-- Favicon Meta Tags -->
+	{MetaTags.map((Tag) => <Fragment set:html={Tag} />)}
+</>
