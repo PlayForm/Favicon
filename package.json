@@ -44,7 +44,7 @@
 		"prepublishOnly": "Build 'Source/**/*.ts' --ESBuild Configuration/ESBuild.ts"
 	},
 	"dependencies": {
-		"@playform/pipe": "0.1.4",
+		"@playform/pipe": "0.1.5",
 		"@realfavicongenerator/generate-favicon": "0.8.0",
 		"@realfavicongenerator/image-adapter-node": "0.8.0",
 		"astro": "6.1.4",
