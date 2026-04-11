@@ -1,6 +1,6 @@
 {
 	"name": "@playform/favicon",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"private": false,
 	"description": "Favicon 🎨",
 	"keywords": [
@@ -45,13 +45,13 @@
 	},
 	"dependencies": {
 		"@playform/pipe": "0.1.4",
-		"@realfavicongenerator/generate-favicon": "0.6.2",
-		"@realfavicongenerator/image-adapter-node": "0.6.1",
-		"astro": "5.18.0",
+		"@realfavicongenerator/generate-favicon": "0.8.0",
+		"@realfavicongenerator/image-adapter-node": "0.8.0",
+		"astro": "6.1.2",
 		"deepmerge-ts": "7.1.5"
 	},
 	"devDependencies": {
-		"@playform/build": "0.3.0"
+		"@playform/build": "0.3.1"
 	},
 	"publishConfig": {
 		"access": "public",
