@@ -47,11 +47,11 @@
 		"@playform/pipe": "0.1.5",
 		"@realfavicongenerator/generate-favicon": "0.8.3",
 		"@realfavicongenerator/image-adapter-node": "0.8.3",
-		"astro": "6.2.2",
+		"astro": "6.3.7",
 		"deepmerge-ts": "7.1.5"
 	},
 	"devDependencies": {
-		"@playform/build": "0.3.1"
+		"@playform/build": "0.3.2"
 	},
 	"publishConfig": {
 		"access": "public",
