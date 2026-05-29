@@ -217,6 +217,23 @@ export default {
 };
 ```
 
+### Build Log HTML
+
+By default `Favicon` logs the generated favicon HTML snippet to the build
+console after generating files. You can disable this with `Inject: false`:
+
+**`astro.config.ts`**
+
+```ts
+export default {
+	integrations: [
+		(await import("@playform/favicon")).default({
+			Inject: false,
+		}),
+	],
+};
+```
+
 ### Controlling Logging
 
 You can control the logging by providing a custom `Logger` function. Pass an

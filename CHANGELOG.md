@@ -8,10 +8,13 @@
 
 ### Documentation
 
-- Rewrite `README.md` with installation, getting started, and configuration sections
+- Rewrite `README.md` with installation, getting started, and configuration
+  sections
 - Add related package badges for `Compress` and `Inline` to the header table
 - Add em quads between text and emoji throughout `README.md` and `package.json`
 - Expand `package.json` keywords with `pwa`, `manifest`, and `svg`
+- Document missing `Inject` option (default `true`) that controls build-log HTML
+  output
 
 ## 0.0.3
 
