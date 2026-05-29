@@ -1,3 +1,20 @@
+## 0.1.0
+
+### Fix
+
+- Fix `BustUrl` import path in `Favicon.astro` to resolve from
+  `Target/Function/` instead of `Source/Function/`, which was missing from the
+  published package
+
+### Documentation
+
+- Rewrite `README.md` with installation, getting started, and configuration sections
+- Add related package badges for `Compress` and `Inline` to the header table
+- Add em quads between text and emoji throughout `README.md` and `package.json`
+- Expand `package.json` keywords with `pwa`, `manifest`, and `svg`
+
+## 0.0.3
+
 ## 0.0.2
 
 - Provenance

@@ -1,6 +1,6 @@
 {
 	"name": "@playform/favicon",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"private": false,
 	"description": "Favicon 🎨",
 	"keywords": [
@@ -11,6 +11,9 @@
 		"favicon",
 		"realfavicongenerator",
 		"icon",
+		"pwa",
+		"manifest",
+		"svg",
 		"withastro",
 		"playform"
 	],
