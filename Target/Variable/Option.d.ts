@@ -7,44 +7,7 @@ declare const _default: {
     Source: string;
     DarkSource: string;
     Path: string;
-    Settings: {
-        Desktop: {
-            RegularIconTransformation: {
-                Type: import("@realfavicongenerator/generate-favicon").IconTransformationType.Background;
-                BackgroundColor: string;
-                BackgroundRadius: number;
-                ImageScale: number;
-            };
-            DarkIconType: "specific";
-            DarkIconTransformation: {
-                Type: import("@realfavicongenerator/generate-favicon").IconTransformationType.Background;
-                BackgroundColor: string;
-                BackgroundRadius: number;
-                ImageScale: number;
-            };
-        };
-        Touch: {
-            Transformation: {
-                Type: import("@realfavicongenerator/generate-favicon").IconTransformationType.Background;
-                BackgroundColor: string;
-                BackgroundRadius: number;
-                ImageScale: number;
-            };
-            AppTitle: string;
-        };
-        WebAppManifest: {
-            Transformation: {
-                Type: import("@realfavicongenerator/generate-favicon").IconTransformationType.Background;
-                BackgroundColor: string;
-                BackgroundRadius: number;
-                ImageScale: number;
-            };
-            BackgroundColor: string;
-            ThemeColor: string;
-            Name: string;
-            ShortName: string;
-        };
-    };
+    Settings: any;
     Inject: true;
     InjectHtml: false;
     BustURL: false;
