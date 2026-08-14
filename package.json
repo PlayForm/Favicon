@@ -51,7 +51,7 @@
 		"@realfavicongenerator/generate-favicon": "0.8.4",
 		"@realfavicongenerator/image-adapter-node": "0.8.4",
 		"astro": "*",
-		"deepmerge-ts": "7.1.5"
+		"deepmerge-ts": "7.1.6"
 	},
 	"devDependencies": {
 		"@playform/build": "0.3.4"
