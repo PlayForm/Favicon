@@ -48,7 +48,7 @@
 	},
 	"dependencies": {
 		"@playform/pipe": "0.1.6",
-		"@realfavicongenerator/generate-favicon": "0.8.6",
+		"@realfavicongenerator/generate-favicon": "0.9.0",
 		"@realfavicongenerator/image-adapter-node": "0.8.6",
 		"astro": "*",
 		"deepmerge-ts": "8.0.2"
